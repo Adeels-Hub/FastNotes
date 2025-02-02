@@ -1,0 +1,8 @@
+site_name: "Notes"
+theme:
+  name: readthedocs  
+markdown_extensions:
+  - toc:
+      permalink: true
+plugins:
+  - search

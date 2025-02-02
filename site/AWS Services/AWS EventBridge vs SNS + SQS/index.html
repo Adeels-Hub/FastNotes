@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>AWS EventBridge vs SNS + SQS - Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "AWS EventBridge vs SNS + SQS";
+        var mkdocs_page_input_path = "AWS Services\\AWS EventBridge vs SNS + SQS.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">AWS Services</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">AWS EventBridge vs SNS + SQS</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architectural Patterns</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Architectural%20Patterns/">Architectural Patterns</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/ESB%20and%20its%20Decline/">ESB and its Decline</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Modern%20Alternatives%20to%20ESB/">Modern Alternatives to ESB</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/SOA%20vs%20MSA/">SOA vs MSA</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">AWS Services</li>
+      <li class="breadcrumb-item active">AWS EventBridge vs SNS + SQS</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p>Event-driven architectures in AWS have evolved significantly, and <strong>AWS EventBridge</strong> and <strong>SNS + SQS</strong> serve overlapping but distinct purposes.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Scenario</strong></th>
+<th><strong>Use SNS + SQS</strong></th>
+<th><strong>Use EventBridge</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simple Pub/Sub Messaging</strong></td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td><strong>Multiple Consumers</strong></td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><strong>Ordering Required (FIFO)</strong></td>
+<td>✅ Yes (SQS FIFO)</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td><strong>Low Latency &amp; High Throughput</strong></td>
+<td>✅ Yes</td>
+<td>⚠️ Sometimes (Depends on rules &amp; integrations)</td>
+</tr>
+<tr>
+<td><strong>Event Filtering</strong></td>
+<td>⚠️ Limited (SNS attributes)</td>
+<td>✅ Advanced JSON-based filtering</td>
+</tr>
+<tr>
+<td><strong>Cross-Account Event Routing</strong></td>
+<td>❌ No (Complex to set up)</td>
+<td>✅ Yes (Built-in)</td>
+</tr>
+<tr>
+<td><strong>Integration with 3rd Party SaaS</strong></td>
+<td>❌ No (Needs custom APIs)</td>
+<td>✅ Yes (Native integrations)</td>
+</tr>
+<tr>
+<td><strong>Long-Term Message Retention</strong></td>
+<td>✅ Yes (Up to 14 days)</td>
+<td>❌ No (24 hours max)</td>
+</tr>
+<tr>
+<td><strong>Dead Letter Queue (DLQ) Support</strong></td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><strong>Dynamically Adding Consumers</strong></td>
+<td>⚠️ Requires additional setup</td>
+<td>✅ Yes (Automatically adds listeners)</td>
+</tr>
+<tr>
+<td><strong>Cost Considerations</strong></td>
+<td>✅ Lower in many cases</td>
+<td>⚠️ May be more expensive due to event bus rules</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>AWS EventBridge</th>
+<th>SNS + SQS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Event-driven routing for loosely coupled services</td>
+<td>Publish-subscribe pattern with message queues</td>
+</tr>
+<tr>
+<td><strong>Integration</strong></td>
+<td>Native integration with AWS services and SaaS applications</td>
+<td>SNS integrates with SQS, Lambda, HTTP(S), and mobile notifications</td>
+</tr>
+<tr>
+<td><strong>Event Filtering</strong></td>
+<td>Supports advanced event filtering using event patterns</td>
+<td>SNS supports basic attribute-based filtering</td>
+</tr>
+<tr>
+<td><strong>Message Ordering</strong></td>
+<td>No ordering guarantees (FIFO not supported)</td>
+<td>FIFO queues in SQS ensure strict ordering</td>
+</tr>
+<tr>
+<td><strong>Durability</strong></td>
+<td>EventBridge retains events for 24 hours, no built-in persistence</td>
+<td>SQS provides long-lived durable queues</td>
+</tr>
+<tr>
+<td><strong>Fan-out</strong></td>
+<td>One-to-many event delivery</td>
+<td>One-to-many message distribution</td>
+</tr>
+<tr>
+<td><strong>Cost Model</strong></td>
+<td>Charged per event published and rule execution</td>
+<td>SNS is per request, SQS is per message retrieval</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Low latency, but not real-time</td>
+<td>SNS + SQS typically has slightly higher latency</td>
+</tr>
+<tr>
+<td><strong>Retry Mechanism</strong></td>
+<td>Built-in retry policies with Dead Letter Queues (DLQ)</td>
+<td>SQS supports DLQ and message retry policies</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-eventbridge-looks-like-an-esb"><strong>Why EventBridge Looks Like an ESB</strong><a class="headerlink" href="#why-eventbridge-looks-like-an-esb" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Centralized Event Bus</strong>: Just like an ESB, multiple services send and receive events through EventBridge, leading to potential complexity.</li>
+<li><strong>High Integration</strong>: It provides deep integration with AWS services (Lambda, Step Functions, API Gateway, etc.), making it easy to wire together different systems, but also making it a dependency for multiple services.</li>
+<li><strong>Dynamic Routing &amp; Transformation</strong>: While it simplifies event-driven architectures, it also centralizes event routing logic, making services dependent on it.</li>
+</ul>
+<h3 id="can-sns-sqs-replace-eventbridge"><strong>Can SNS + SQS Replace EventBridge?</strong><a class="headerlink" href="#can-sns-sqs-replace-eventbridge" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Yes, in Some Cases</strong>: SNS + SQS can achieve similar outcomes for many event-driven scenarios.</li>
+<li><strong>No, for Complex Routing</strong>: EventBridge is better when you need <strong>event filtering, dynamic event routing, and integration with third-party services</strong> without writing custom logic.</li>
+</ul>
+<h3 id="conclusion"><strong>Conclusion</strong><a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h3>
+<p>You're correct that AWS EventBridge is effectively acting as a modern ESB. The difference is that it's more <strong>serverless, scalable, and event-driven</strong> rather than a tightly coupled middleware like traditional ESBs.</p>
+<p>If your use case is simple <strong>pub/sub messaging</strong>, <strong>SNS + SQS</strong> is often a better and more cost-effective choice.</p>
+<p>If you need <strong>advanced event filtering, cross-account event routing, and SaaS integrations</strong>, <strong>EventBridge</strong> provides those capabilities without needing additional logic.</p>
+<p>Let me know if you want to discuss a specific use case</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../Architectural%20Patterns/Architectural%20Patterns/" class="btn btn-neutral float-right" title="Architectural Patterns">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="../../Architectural%20Patterns/Architectural%20Patterns/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>SOA vs MSA - Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SOA vs MSA";
+        var mkdocs_page_input_path = "Architectural Patterns\\SOA vs MSA.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">AWS Services</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/">AWS EventBridge vs SNS + SQS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architectural Patterns</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Architectural%20Patterns/">Architectural Patterns</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ESB%20and%20its%20Decline/">ESB and its Decline</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Modern%20Alternatives%20to%20ESB/">Modern Alternatives to ESB</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">SOA vs MSA</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Architectural Patterns</li>
+      <li class="breadcrumb-item active">SOA vs MSA</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p>You're right that <strong>Service-Oriented Architecture (SOA) and Microservices Architecture (MSA)</strong> are related concepts, but they are <strong>not exactly the same pattern</strong>. SOA <strong>can</strong> evolve into MSA if done right, but they have key differences in principles, design goals, and implementation.</p>
+<h3 id="understanding-soa-vs-msa"><strong>Understanding SOA vs. MSA</strong><a class="headerlink" href="#understanding-soa-vs-msa" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><strong>SOA (Service-Oriented Architecture)</strong></th>
+<th><strong>MSA (Microservices Architecture)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Enterprise-wide architecture (multiple systems interacting)</td>
+<td>Application-specific architecture (focused on a single application)</td>
+</tr>
+<tr>
+<td><strong>Service Size</strong></td>
+<td>Services are larger, can be monolithic inside</td>
+<td>Services are smaller and more fine-grained</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Typically uses <strong>ESB (Enterprise Service Bus)</strong></td>
+<td>Uses <strong>lightweight APIs</strong> (e.g., REST, gRPC, messaging like Kafka)</td>
+</tr>
+<tr>
+<td><strong>Coupling</strong></td>
+<td>Loosely coupled, but often <strong>still dependent on ESB</strong></td>
+<td><strong>Fully decoupled</strong>, each service is independent</td>
+</tr>
+<tr>
+<td><strong>Data Management</strong></td>
+<td>Services may share a central database</td>
+<td><strong>Each microservice has its own database (Database per Service)</strong></td>
+</tr>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Large deployments, often requires redeploying multiple services</td>
+<td><strong>Independent deployments</strong>, each microservice can be deployed separately</td>
+</tr>
+<tr>
+<td><strong>Technology Stack</strong></td>
+<td>Standardized stack (e.g., all services in .NET or Java)</td>
+<td>Polyglot, services can be in different technologies</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Typically horizontal scaling at the system level</td>
+<td><strong>Scales at microservice level (service-specific scaling)</strong></td>
+</tr>
+<tr>
+<td><strong>Fault Isolation</strong></td>
+<td>Failure in one service can affect others</td>
+<td><strong>More resilient</strong>, failure in one service doesn’t break the whole system</td>
+</tr>
+<tr>
+<td><strong>Governance</strong></td>
+<td>Strong governance, centralized control</td>
+<td><strong>Decentralized governance</strong>, teams own their services</td>
+</tr>
+</tbody>
+</table>
+<h3 id="so-does-soa-done-right-become-msa"><strong>So, does SOA done right become MSA?</strong><a class="headerlink" href="#so-does-soa-done-right-become-msa" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>If an SOA system is properly modularized, decentralized, and independently scalable, it starts looking like MSA.</strong></li>
+<li><strong>However, not all SOA implementations follow microservices principles.</strong> Many SOA systems use an ESB, centralized data, and monolithic services, which go against microservices principles.</li>
+<li><strong>The transition from SOA to MSA usually requires breaking down large services, decentralizing data, and removing ESB dependency.</strong></li>
+</ul>
+<h3 id="when-to-use-soa-vs-msa"><strong>When to Use SOA vs. MSA</strong><a class="headerlink" href="#when-to-use-soa-vs-msa" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SOA is better suited for enterprise-wide integration</strong> where multiple large applications must interact (e.g., integrating ERP, CRM, and third-party services).</li>
+<li><strong>MSA is better for building modern, cloud-native applications</strong> that require scalability, resilience, and independent deployments.</li>
+</ul>
+<h3 id="conclusion"><strong>Conclusion</strong><a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h3>
+<p>SOA and MSA <strong>share similar goals</strong>, but MSA <strong>is a more modern, evolved form of SOA</strong> that removes centralized bottlenecks and improves scalability and resilience. A well-designed SOA <strong>can</strong> evolve into an MSA, but traditional SOA with an ESB and shared databases is <strong>not</strong> a microservices architecture.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Modern%20Alternatives%20to%20ESB/" class="btn btn-neutral float-left" title="Modern Alternatives to ESB"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Modern%20Alternatives%20to%20ESB/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
