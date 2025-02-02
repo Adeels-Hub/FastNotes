@@ -121,6 +121,28 @@ https://www.youtube.com/watch?v=vw11J2BN7lY</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Message vs Event from architecture the hard parts</strong>
+The book does not explicitly define a difference between a message and an event, but it uses the terms in ways that imply a distinction in their usage and context within distributed systems. Here's how the book uses the terms "message" and "event" and what can be inferred about their differences:</p>
+<ul>
+<li><strong>Messages:</strong>The book often uses the term "message" in the context of <strong>communication between services</strong>, particularly in asynchronous communication. For example, it mentions that in asynchronous communication, a caller posts a "message" to the receiver [1].</li>
+<li>Messages are often associated with <strong>commands or requests</strong>, where a service is telling another service to do something or is requesting data [2]. For instance, the book talks about "command messages" in the context of the event-based eventual consistency pattern [3].</li>
+<li>Messages are frequently delivered through <strong>message queues or brokers</strong>, and they are a primary mechanism for asynchronous communication [1, 4].</li>
+<li>The book describes <strong>message queues</strong> as a means for implementing asynchronous communication, where messages are stored until they can be processed by the receiving service [1].</li>
+<li><strong>Events:</strong>The book uses "event" to describe something that <strong>has occurred</strong> in the system. For example, a "customer unsubscribed" event is mentioned as something that other services would react to in the event-based eventual consistency pattern [3].</li>
+<li>Events are used as a trigger for actions in other parts of the system using a <strong>publish-and-subscribe model</strong> [3, 5]. Services "listen" for specific events and respond accordingly.</li>
+<li>Events are associated with the <strong>event-based pattern</strong> for eventual consistency, where services react to these events asynchronously [2, 3].</li>
+<li>Events are often considered part of <strong>sagas</strong>, where a sequence of local transactions are triggered by the publishing of an event [6].</li>
+</ul>
+<p>Based on these usages, here are some key differences that can be inferred:</p>
+<ul>
+<li><strong>Intent:Messages</strong> often convey a specific action or request from one service to another.</li>
+<li><strong>Events</strong> typically indicate that a state change has occurred in the system.</li>
+<li><strong>Direction:Messages</strong> often have a clear recipient and are directed at a specific service.</li>
+<li><strong>Events</strong> are broadcast using a publish-and-subscribe pattern, and are intended to notify multiple services about a particular occurrence.</li>
+<li><strong>Context:Messages</strong> are often part of a command-response cycle or workflow.</li>
+<li><strong>Events</strong> are often used to maintain eventual consistency and to trigger reactions in distributed systems.</li>
+</ul>
+<p>Although the book does not define a clear and explicit difference, it implies a contextual distinction: <strong>messages are usually commands, and events are notifications of state changes.</strong></p>
               
             </div>
           </div><footer>
