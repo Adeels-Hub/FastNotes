@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Modern Alternatives to ESB - Notes</title>
+    <title>Message vs Event - Notes</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Modern Alternatives to ESB";
-        var mkdocs_page_input_path = "Architectural Patterns\\Modern Alternatives to ESB.md";
+        var mkdocs_page_name = "Message vs Event";
+        var mkdocs_page_input_path = "AWS Services\\Message vs Event.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -40,25 +40,23 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">AWS Services</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/">AWS EventBridge vs SNS + SQS</a>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/">AWS EventBridge vs SNS + SQS</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/Message%20vs%20Event/">Message vs Event</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Message vs Event</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/When%20to%20Use%20EventBridge%20Over%20SQS/">When to Use EventBridge Over SQS</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../When%20to%20Use%20EventBridge%20Over%20SQS/">When to Use EventBridge Over SQS</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Architectural Patterns</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../Architectural%20Patterns/">Architectural Patterns</a>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Architectural%20Patterns/">Architectural Patterns</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ESB%20and%20its%20Decline/">ESB and its Decline</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/ESB%20and%20its%20Decline/">ESB and its Decline</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Modern Alternatives to ESB</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Modern%20Alternatives%20to%20ESB/">Modern Alternatives to ESB</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../SOA%20vs%20MSA/">SOA vs MSA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/SOA%20vs%20MSA/">SOA vs MSA</a>
                   </li>
               </ul>
       </div>
@@ -75,8 +73,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Architectural Patterns</li>
-      <li class="breadcrumb-item active">Modern Alternatives to ESB</li>
+          <li class="breadcrumb-item">AWS Services</li>
+      <li class="breadcrumb-item active">Message vs Event</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -85,24 +83,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h3 id="why-esbs-declined-in-popularity">Why ESBs Declined in Popularity?<a class="headerlink" href="#why-esbs-declined-in-popularity" title="Permanent link">&para;</a></h3>
-<p>With the rise of <strong>Microservices Architecture (MSA)</strong> and <strong>cloud-native applications</strong>, <strong>ESBs became bottlenecks</strong> due to: ✅ <strong>Complex configuration &amp; maintenance</strong>.<br />
-✅ <strong>Performance issues</strong> when scaling.<br />
-✅ <strong>Centralized architecture conflicting with MSA’s decentralized approach</strong>.<br />
-✅ <strong>Modern alternatives like API gateways (Kong, Apigee) and message brokers (Kafka, RabbitMQ) replaced ESBs</strong>.</p>
-<h3 id="modern-alternatives-to-esb">Modern Alternatives to ESB<a class="headerlink" href="#modern-alternatives-to-esb" title="Permanent link">&para;</a></h3>
-<p>Instead of ESBs, today’s <strong>microservices architectures</strong> use:</p>
-<ul>
-<li><strong>API Gateways</strong> → Kong, Apigee, AWS API Gateway</li>
-<li><strong>Message Brokers</strong> → Kafka, RabbitMQ, AWS SQS</li>
-<li><strong>Service Mesh</strong> → Istio, Linkerd, Consul for inter-service communication</li>
-</ul>
+                <p>Messages are of two types
+https://www.youtube.com/watch?v=vw11J2BN7lY</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Commands</th>
+<th>Events</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Invoke Behavior</td>
+<td>Something Happened</td>
+</tr>
+<tr>
+<td><strong>Ownership</strong></td>
+<td>Command Owned by Consumer</td>
+<td>Event Owned by Publisher</td>
+</tr>
+<tr>
+<td><strong>Consumers</strong></td>
+<td>One Consumer</td>
+<td>Zero or Many Consumers</td>
+</tr>
+<tr>
+<td><strong>Senders</strong></td>
+<td>Many Senders</td>
+<td>Single Publisher</td>
+</tr>
+<tr>
+<td><strong>Naming</strong></td>
+<td>Verb</td>
+<td>Past Tense</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../ESB%20and%20its%20Decline/" class="btn btn-neutral float-left" title="ESB and its Decline"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../SOA%20vs%20MSA/" class="btn btn-neutral float-right" title="SOA vs MSA">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/" class="btn btn-neutral float-left" title="AWS EventBridge vs SNS + SQS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../When%20to%20Use%20EventBridge%20Over%20SQS/" class="btn btn-neutral float-right" title="When to Use EventBridge Over SQS">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -125,10 +149,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../ESB%20and%20its%20Decline/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../SOA%20vs%20MSA/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../When%20to%20Use%20EventBridge%20Over%20SQS/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
