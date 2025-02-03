@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Modern Alternatives to ESB - Notes</title>
+    <title>Auth0 Applications vs API - Notes</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Modern Alternatives to ESB";
-        var mkdocs_page_input_path = "Architectural Patterns\\Modern Alternatives to ESB.md";
+        var mkdocs_page_name = "Auth0 Applications vs API";
+        var mkdocs_page_input_path = "Security\\Auth0 Applications vs API.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -59,23 +59,23 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Architectural Patterns</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../Architectural%20Patterns/">Architectural Patterns</a>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Architectural%20Patterns/">Architectural Patterns</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ESB%20and%20its%20Decline/">ESB and its Decline</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/ESB%20and%20its%20Decline/">ESB and its Decline</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Modern Alternatives to ESB</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Modern%20Alternatives%20to%20ESB/">Modern Alternatives to ESB</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../SOA%20vs%20MSA/">SOA vs MSA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/SOA%20vs%20MSA/">SOA vs MSA</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Security</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Security/Auth0%20Applications%20vs%20API/">Auth0 Applications vs API</a>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Auth0 Applications vs API</a>
+    <ul class="current">
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../Security/Authenticating%20ServiceA%20with%20ServiceB/">Authenticating ServiceA with ServiceB</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Authenticating%20ServiceA%20with%20ServiceB/">Authenticating ServiceA with ServiceB</a>
                   </li>
               </ul>
       </div>
@@ -92,8 +92,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Architectural Patterns</li>
-      <li class="breadcrumb-item active">Modern Alternatives to ESB</li>
+          <li class="breadcrumb-item">Security</li>
+      <li class="breadcrumb-item active">Auth0 Applications vs API</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -102,24 +102,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h3 id="why-esbs-declined-in-popularity">Why ESBs Declined in Popularity?<a class="headerlink" href="#why-esbs-declined-in-popularity" title="Permanent link">&para;</a></h3>
-<p>With the rise of <strong>Microservices Architecture (MSA)</strong> and <strong>cloud-native applications</strong>, <strong>ESBs became bottlenecks</strong> due to: ✅ <strong>Complex configuration &amp; maintenance</strong>.<br />
-✅ <strong>Performance issues</strong> when scaling.<br />
-✅ <strong>Centralized architecture conflicting with MSA’s decentralized approach</strong>.<br />
-✅ <strong>Modern alternatives like API gateways (Kong, Apigee) and message brokers (Kafka, RabbitMQ) replaced ESBs</strong>.</p>
-<h3 id="modern-alternatives-to-esb">Modern Alternatives to ESB<a class="headerlink" href="#modern-alternatives-to-esb" title="Permanent link">&para;</a></h3>
-<p>Instead of ESBs, today’s <strong>microservices architectures</strong> use:</p>
+                <p>In the Auth0 dashboard, <strong>Applications</strong> and <strong>APIs</strong> serve different purposes for managing authentication and authorization in your system. Here’s a breakdown:</p>
+<h3 id="1-applications">1. <strong>Applications</strong><a href="https://adeels-hub.github.io/Notes/Security/Auth0/Auth0%20Applications%20vs%20APIs/#1-applications" title="Permanent link">¶</a><a class="headerlink" href="#1-applications" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>API Gateways</strong> → Kong, Apigee, AWS API Gateway</li>
-<li><strong>Message Brokers</strong> → Kafka, RabbitMQ, AWS SQS</li>
-<li><strong>Service Mesh</strong> → Istio, Linkerd, Consul for inter-service communication</li>
+<li><strong>Purpose</strong>: Represents <strong>front-end clients</strong> that require authentication for users, such as web apps, mobile apps, or single-page applications (SPAs).</li>
+<li><strong>Functionality</strong>:<ul>
+<li>Applications are typically configured to <strong>authenticate users</strong> and request access tokens to interact with protected resources (such as an API).</li>
+<li>Auth0 uses different authentication flows depending on the application type, such as Authorization Code Flow for web apps or Authorization Code Flow with PKCE for SPAs and mobile apps.</li>
+<li>Each application has its own client ID and client secret, which are used to identify and authenticate the application itself when communicating with Auth0.</li>
+</ul>
+</li>
+<li><strong>Examples</strong>:<ul>
+<li>A single-page application (SPA) like a React or Angular web app.</li>
+<li>A native mobile application, like an iOS or Android app.</li>
+<li>A backend server that directly handles user authentication.</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-apis">2. <strong>APIs</strong><a href="https://adeels-hub.github.io/Notes/Security/Auth0/Auth0%20Applications%20vs%20APIs/#2-apis" title="Permanent link">¶</a><a class="headerlink" href="#2-apis" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Purpose</strong>: Represents <strong>back-end services</strong> or <strong>resources</strong> that need to be protected and require <strong>authorization</strong>. APIs are the resources that applications are authorized to access.</li>
+<li><strong>Functionality</strong>:<ul>
+<li>APIs in Auth0 are typically configured to <strong>authorize access</strong> based on the scopes and permissions granted to applications.</li>
+<li>An API defines the scopes (permissions) that applications can request in their access tokens, such as <code>read:data</code> or <code>write:data</code>.</li>
+<li>When an application requests access to an API, Auth0 includes the requested scopes in the access token, which the API verifies to enforce access control.</li>
+</ul>
+</li>
+<li><strong>Examples</strong>:<ul>
+<li>A RESTful API that provides data to the application, such as a <code>user-profile</code> API.</li>
+<li>A backend microservice that performs certain actions, like processing payments or handling user data.</li>
+</ul>
+</li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../ESB%20and%20its%20Decline/" class="btn btn-neutral float-left" title="ESB and its Decline"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../SOA%20vs%20MSA/" class="btn btn-neutral float-right" title="SOA vs MSA">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../Architectural%20Patterns/SOA%20vs%20MSA/" class="btn btn-neutral float-left" title="SOA vs MSA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Authenticating%20ServiceA%20with%20ServiceB/" class="btn btn-neutral float-right" title="Authenticating ServiceA with ServiceB">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -142,10 +162,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../ESB%20and%20its%20Decline/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../../Architectural%20Patterns/SOA%20vs%20MSA/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../SOA%20vs%20MSA/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Authenticating%20ServiceA%20with%20ServiceB/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

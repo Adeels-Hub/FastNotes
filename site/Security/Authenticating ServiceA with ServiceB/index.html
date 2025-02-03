@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Authenticating ServiceA with ServiceB - Notes</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Authenticating ServiceA with ServiceB";
+        var mkdocs_page_input_path = "Security\\Authenticating ServiceA with ServiceB.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">AWS Services</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/">AWS EventBridge vs SNS + SQS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/Competing%20Consumers%20issues/">Competing Consumers issues</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/Context%20Mapping%20Between%20Systems/">Context Mapping Between Systems</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/Message%20Ordering/">Message Ordering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/Message%20vs%20Event/">Message vs Event</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/Streaming%20with%20AWS%20Kinesis%20%28Pascals%20Law%29/">Streaming with AWS Kinesis (Pascals Law)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/What%20should%20be%20in%20Message%20or%20Event/">What should be in Message or Event</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../AWS%20Services/When%20to%20Use%20EventBridge%20Over%20SQS/">When to Use EventBridge Over SQS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architectural Patterns</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Architectural%20Patterns/">Architectural Patterns</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/ESB%20and%20its%20Decline/">ESB and its Decline</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Modern%20Alternatives%20to%20ESB/">Modern Alternatives to ESB</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/SOA%20vs%20MSA/">SOA vs MSA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Security</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Auth0%20Applications%20vs%20API/">Auth0 Applications vs API</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Authenticating ServiceA with ServiceB</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Security</li>
+      <li class="breadcrumb-item active">Authenticating ServiceA with ServiceB</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h5 id="oauth-flows-client-credentials-flow">OAuth Flows - Client Credentials Flow<a class="headerlink" href="#oauth-flows-client-credentials-flow" title="Permanent link">&para;</a></h5>
+<h5 id="auth0-flows-client-credentials-flow">Auth0 Flows - Client Credentials Flow<a class="headerlink" href="#auth0-flows-client-credentials-flow" title="Permanent link">&para;</a></h5>
+<ol>
+<li>
+<p><strong>Set Up in Auth0</strong>:</p>
+<ul>
+<li><strong>Define APIs</strong> for both <strong>Service A</strong> and <strong>Service B</strong> in Auth0. This setup will protect both services and allow you to manage scopes and permissions separately.</li>
+<li><strong>Create an Application</strong> for <strong>Service A</strong> in Auth0. This Application will use <strong>Client Credentials Flow</strong> to obtain an access token to call <strong>Service B</strong>.</li>
+<li>
+<p><strong>Service A Requests a Token to Call Service B</strong>:</p>
+</li>
+<li>
+<p>Before Service A calls Service B, it needs to obtain an access token from Auth0. Instead of Service B redirecting Service A, <strong>Service A should directly request a token from Auth0</strong>.</p>
+</li>
+<li>
+<p>Service A makes a request to the Auth0 <strong>token endpoint</strong> using its <strong>Client ID</strong> and <strong>Client Secret</strong> (assigned in the Service A Application in Auth0).</p>
+</li>
+<li>
+<p><strong>Token Request Using Client Credentials Flow</strong>:</p>
+</li>
+<li>
+<p>The token request should specify <strong>Service B as the audience</strong> and include any required <strong>scopes</strong> that Service A needs to access Service B.</p>
+</li>
+<li>
+<p>Example token request by Service A:</p>
+<p>http</p>
+<p>Copy code</p>
+<p><code>POST https://your-auth0-domain/oauth/token Content-Type: application/json { "grant_type": "client_credentials", "client_id": "ServiceA-client-id", "client_secret": "ServiceA-client-secret", "audience": "https://service-b-api", "scope": "required_scope_for_service_b" }</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Auth0 Issues an Access Token</strong>:</p>
+<ul>
+<li>Auth0 validates Service A’s client credentials and checks if Service A is authorized to request access to Service B with the specified scopes.</li>
+<li>If authorized, Auth0 issues an <strong>access token</strong> scoped for Service B and returns it to Service A.</li>
+<li>
+<p><strong>Service A Calls Service B with the Access Token</strong>:</p>
+</li>
+<li>
+<p>Service A includes the access token in the <code>Authorization</code> header of its request to Service B.</p>
+</li>
+<li>
+<p>Example request from Service A to Service B:</p>
+<p>http</p>
+<p>Copy code</p>
+<p><code>GET https://service-b-api/endpoint Authorization: Bearer &lt;access_token&gt;</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Service B Validates the Access Token</strong>:</p>
+<ul>
+<li>Service B receives the request from Service A and verifies the access token with Auth0 (or by decoding it, if using JWT).</li>
+<li>If the token is valid and includes the required scopes, Service B processes the request from Service A.</li>
+</ul>
+</li>
+</ol>
+<h3 id="important-notes">Important Notes:<a href="https://adeels-hub.github.io/Notes/Security/Auth0/Flow%201%20-%20Machine%20to%20Machine%20Client%20Credential%20Flow/#important-notes" title="Permanent link">¶</a><a class="headerlink" href="#important-notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Direct Token Request</strong>: Service A should directly request the token from Auth0 using the <strong>Client Credentials Flow</strong> rather than being redirected by Service B. This approach is standard for service-to-service (machine-to-machine) communication.</li>
+<li><strong>Audience and Scopes</strong>: Ensure that the <strong>audience</strong> in the token request is set to Service B’s API identifier (as registered in Auth0) and that the token includes any necessary <strong>scopes</strong> for Service B.</li>
+<li><strong>Authorization Logic in Service B</strong>: Service B should only authorize requests from Service A if they contain a valid token with the correct scopes and audience.</li>
+</ul>
+<h3 id="summary-of-adjusted-flow">Summary of Adjusted Flow<a href="https://adeels-hub.github.io/Notes/Security/Auth0/Flow%201%20-%20Machine%20to%20Machine%20Client%20Credential%20Flow/#summary-of-adjusted-flow" title="Permanent link">¶</a><a class="headerlink" href="#summary-of-adjusted-flow" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Service A requests an access token</strong> from Auth0 to call Service B (no redirection by Service B).</li>
+<li>Service A includes its <strong>Client ID, Client Secret, audience (Service B), and scopes</strong> in the token request.</li>
+<li><strong>Auth0 issues the access token</strong>.</li>
+<li><strong>Service A calls Service B</strong> with the token in the <code>Authorization</code> header.</li>
+<li><strong>Service B validates the token</strong> and processes the request if authorized.</li>
+</ol>
+<p>This approach adheres to standard OAuth 2.0 practices for <strong>machine-to-machine authentication</strong> and ensures secure, seamless communication between Service A and Service B.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Auth0%20Applications%20vs%20API/" class="btn btn-neutral float-left" title="Auth0 Applications vs API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Auth0%20Applications%20vs%20API/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

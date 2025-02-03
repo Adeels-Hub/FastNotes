@@ -43,7 +43,17 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/">AWS EventBridge vs SNS + SQS</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Competing%20Consumers%20issues/">Competing Consumers issues</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Context%20Mapping%20Between%20Systems/">Context Mapping Between Systems</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Message%20Ordering/">Message Ordering</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Message vs Event</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Streaming%20with%20AWS%20Kinesis%20%28Pascals%20Law%29/">Streaming with AWS Kinesis (Pascals Law)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../What%20should%20be%20in%20Message%20or%20Event/">What should be in Message or Event</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../When%20to%20Use%20EventBridge%20Over%20SQS/">When to Use EventBridge Over SQS</a>
                   </li>
@@ -57,6 +67,13 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/Modern%20Alternatives%20to%20ESB/">Modern Alternatives to ESB</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../Architectural%20Patterns/SOA%20vs%20MSA/">SOA vs MSA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Security</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security/Auth0%20Applications%20vs%20API/">Auth0 Applications vs API</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security/Authenticating%20ServiceA%20with%20ServiceB/">Authenticating ServiceA with ServiceB</a>
                   </li>
               </ul>
       </div>
@@ -119,10 +136,23 @@ https://www.youtube.com/watch?v=vw11J2BN7lY</p>
 <td>Verb</td>
 <td>Past Tense</td>
 </tr>
+<tr>
+<td>![[Pasted image 20250202201625.png]]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>#### Message vs Event from architecture the hard parts</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>The book does not explicitly define a difference between a message and an event, but it uses the terms in ways that imply a distinction in their usage and context within distributed systems. Here's how the book uses the terms "message" and "event" and what can be inferred about their differences:</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<p><strong>Message vs Event from architecture the hard parts</strong>
-The book does not explicitly define a difference between a message and an event, but it uses the terms in ways that imply a distinction in their usage and context within distributed systems. Here's how the book uses the terms "message" and "event" and what can be inferred about their differences:</p>
 <ul>
 <li><strong>Messages:</strong>The book often uses the term "message" in the context of <strong>communication between services</strong>, particularly in asynchronous communication. For example, it mentions that in asynchronous communication, a caller posts a "message" to the receiver [1].</li>
 <li>Messages are often associated with <strong>commands or requests</strong>, where a service is telling another service to do something or is requesting data [2]. For instance, the book talks about "command messages" in the context of the event-based eventual consistency pattern [3].</li>
@@ -147,8 +177,8 @@ The book does not explicitly define a difference between a message and an event,
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/" class="btn btn-neutral float-left" title="AWS EventBridge vs SNS + SQS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../When%20to%20Use%20EventBridge%20Over%20SQS/" class="btn btn-neutral float-right" title="When to Use EventBridge Over SQS">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Message%20Ordering/" class="btn btn-neutral float-left" title="Message Ordering"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Streaming%20with%20AWS%20Kinesis%20%28Pascals%20Law%29/" class="btn btn-neutral float-right" title="Streaming with AWS Kinesis (Pascals Law)">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -171,10 +201,10 @@ The book does not explicitly define a difference between a message and an event,
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../AWS%20EventBridge%20vs%20SNS%20%2B%20SQS/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Message%20Ordering/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../When%20to%20Use%20EventBridge%20Over%20SQS/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Streaming%20with%20AWS%20Kinesis%20%28Pascals%20Law%29/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
